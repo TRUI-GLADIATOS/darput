@@ -18,6 +18,7 @@ class MPU6050{
     double gyroXangle, gyroYangle; // Angle calculate using the gyro only
     double compAngleX, compAngleY; // Calculated angle using a complementary filter
     double kalAngleX, kalAngleY; // Calculated angle using a Kalman filter
+    double FBaccel;
 
     uint32_t timer;
     const int MPU=0x68;  // I2C address of the MPU-6050 
@@ -27,7 +28,7 @@ class MPU6050{
         void mulai(uint8_t tipe); //1 -> 16, 17; 2 -> 18,19
         void Serialget();
         double getX(){
-            return kalAngleX;
+            return FBaccel;
         }
         double getY(){
             return kalAngleY;

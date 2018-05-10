@@ -11,6 +11,7 @@
 //void rutinIMU();
 MPU6050 imu;
 IntervalTimer myTimer;
+char buton = 0x00;
 
 void rutin(){
   digitalWrite(ledPin, LOW);
@@ -20,6 +21,9 @@ void rutin(){
 
 void setup() 
 {
+  pinMode(22, INPUT);
+  pinMode(21, INPUT);
+  pinMode(20, INPUT);
   pinMode(ledPin, OUTPUT);
   digitalWrite(ledPin, HIGH);
   Serial.begin(1000000);
@@ -33,9 +37,17 @@ void setup()
 
 void loop() 
 {
+  //format data ABCXXXXX
+  //A untuk 20, B untuk 21, C untuk 22
   uint8_t c, penghitung;
-
-  while (!(Serial.available()));    //waiting input from serial
+  if (digitalRead(20))
+  buton = 'A';
+  else if (digitalRead(21))
+  buton = 'B';
+  else if (digitalRead(22))
+  buton = 'C';
+  if(Serial.available())    //waiting input from serial
+  {
   c = Serial.read();                //get first byte
       //Masuk ke state mengambil isi sensor Kompas
   penghitung = 0;
@@ -65,5 +77,7 @@ void loop()
    Serial.print(hy);
   // Serial.flush();
    Serial.print("E");
-
+   Serial.write(buton);
+   buton = 0x00;
+  }
 }
