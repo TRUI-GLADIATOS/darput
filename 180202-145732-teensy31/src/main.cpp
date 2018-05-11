@@ -72,9 +72,6 @@ void loop()
    double hx = imu.getX();
    Serial.print(hx);
   // Serial.flush();
-   Serial.print("Y");
-   double hy = imu.getY();
-   Serial.print(hy);
   // Serial.flush();
    Serial.print("E");
    Serial.write(buton);
