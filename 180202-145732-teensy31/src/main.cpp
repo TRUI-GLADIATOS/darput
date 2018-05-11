@@ -27,6 +27,7 @@ void setup()
   pinMode(ledPin, OUTPUT);
   digitalWrite(ledPin, HIGH);
   Serial.begin(1000000);
+  Serial3.begin(9600);
   imu.mulai(2);
   myTimer.begin(rutin, 150000);
   //Serial1.begin(1000000);
