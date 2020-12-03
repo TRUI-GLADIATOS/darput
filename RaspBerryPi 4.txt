@@ -1,0 +1,186 @@
+Password ubuntu@ubuntu in raspi: gladiatos
+Password elektrik@elektrik-hp-Laptop BLABLA: gladiatos
+
+How to install Ubuntu Mate:
+1. follow the steps on youtube: https://m.youtube.com/watch?v=fZbJIe2oj8k
+2. when you are about to type in command "sudo apt install ubuntu-mate-desktop", you
+   need to connect your Pi to the internet. you can use the following procedure:
+   https://medium.com/@jrcharney/connect-your-raspberry-pi-to-your-computer-via-ethernet-4564e1e68922
+3. try to ping your Pi at the end of the procedure above. type "ping ubuntu.local"
+4. next, when you are trying to type the command "sudo apt install ubuntu-mate-desktop" again,
+   you will not be able to because the Pi is basically taken over by your laptop. This means
+   you need to use PuTTY to use ssh.
+5. to enable ssh on your Pi, type "ssh ubuntu@ubuntu.local". you will be asked for your password.
+   yours is gladiatos.
+6. by following the steps from https://raspberrypi4dummies.wordpress.com/2013/03/17/connect-to-the-raspberry-pi-via-ssh-putty/
+   you will be able to connect your Pi. but if you type the Host name(or Ip Address) part, dont
+   use the ipconfig /all of your raspberryPi to it. you need to ifconfig your raspberryPi
+   to see your Pi's true ipV4 address. yours is 192.168.137.249
+7. There are some warnings in the PuTTY. just click yes.
+8. You have successfully ssh to your Pi. HOORAY!!!
+
+How to ssh by PuTTY:
+1. go to settings -> network & internet -> Ethernet -> Network and Sharing center
+2. To let your pi connect to your laptop's internet: 
+   click "wifi(name)" marked in blue -> properties -> sharing -> check "allow other network to connect..." -> ok -> close
+3. Then: Ethernet marked in blue -> properties -> make sure the "Internet protocol Version 4"
+   is checked list. 
+4. to know wether your Pi is connected via ethernet, open windows command prompt -> type
+   ping 'computer username/ip address from step 3'. if yes, it will show result.your Pi is "ubuntu"
+5. to enable your Pi allow ssh, in the command prompt, type 
+   "ssh 'computer username/ip address from step 3'.local" computer's name: ubuntu@ubuntu
+6. it will show "ssh: connect to host ubuntu.local port 22: Connection timed out" if succeed.
+7. Go to PuTTY, type in your computer username/ip address from step 3 then click ok.
+8. you have succeed to remotely control your Pi.
+
+How to connect VNCviewer to RaspberryPi for the first time:
+1. connect your PC via ssh by PuTTY
+   (type ssh ubuntu@ubuntu.local on cmd, then ifconfig to get your Pi's IP address. insert
+    this to the PuTTY)
+2. follow from the instruction from https://m.youtube.com/watch?v=gsVhEEFM07I
+   (your password for vncserver : connect)
+3. after you have set the resolution, open VNCviewer, then type "IPV4addres:1" here, :1 is
+   after you have run vncserver on your Pi via PuTTY. remember to insert your IPV4 address
+   of your Pi. it may change. now your ip address is 192.168.1.6
+   password: gladiatos
+   username: ubuntu@ubuntu
+4. finish. 
+
+How to connect VNCviewer for the second time and so on:
+1. connect via ssh by PuTTY
+2. type vncserver. this will make your Pi open vncserver on its device.
+3. you will be greet by "New 'X' desktop is ubuntu:1". this what i meant for :1 in step 3 above
+4. Open VNCviewer, then type your desktop name. it should have already in there. just choose
+   it (password: connect)
+5. DONE. 
+   
+Your source in downloading openCV: https://www.pyimagesearch.com/2018/08/15/how-to-install-opencv-4-on-ubuntu/ -> CANNOT!
+
+Your source in programming in ubuntu linux using C and C++: https://rupinderjeetkaur.wordpress.com/2014/06/20/run-a-cc-program-on-terminal-using-gcc-compiler/
+Your source in programming in ubuntu linux using Python: https://www.compromath.com/2017/08/run-python-script-linux-command-line.html
+for C: 1. sudo gedit apalah.c
+       2. safe file
+       3. sudo gcc apalah.c
+       4. ./a.out apalah.c
+for C++: 1. sudo gedit apalah.cpp
+	 2. safe file
+	 3. sudo g++ apalah.cpp
+	 4. ./1.out apalah.cpp
+for python: 1. sudo gedit apalah.py
+	    2. safe file
+	    3. python apalah.py
+to print what is your current directory is: pwd
+
+
+you have download python on your raspberryPi
+to change python version: https://stackoverflow.com/questions/41986507/unable-to-set-default-python-version-to-python3-in-ubuntu#:~:text=To%20change%20to%20python3%2C%20you,in%20terminal%20alias%20python%3Dpython3%20.&text=to%20go%20into%20the%20bashrc,file%20make%20the%20following%20change.&text=which%20replaces%20the%20symlink%20in,%2Fusr%2Fbin%2Fpython3%20.&text=Check%20the%20version%20of%20python%20in%20your%20machine.
+to upgrade python version:https://medium.com/@rajputankit22/upgrade-python-2-7-to-3-6-and-3-7-in-ubuntu-97d2727bf911
+
+to find you COM port, its in ubuntu's home -> file system -> dev -> serial -> by id / by path
+or you can type ls /dev/ttyACM*
+or you can type dmesg for fully connection
+to read the data coming from serial port: cat /dev/ttyACM0 (https://www.linuxquestions.org/questions/linux-hardware-18/reading-serial-data-from-ttyacm0-4175650004/)
+to write data to the serial port: echo -ne 'your data' > /dev/ttyACM0
+to change the baud rate: stty 19200 < /dev/ttyACM0
+
+to learn the library for Serial Port communication: https://blog.mbedded.ninja/programming/operating-systems/linux/linux-serial-ports-using-c-cpp/
+
+Problem when installing ROS:
+1. sudo apt-get update not working
+	Solution: Change python version to 3.6, apparently python 3.7 just broke sudo apt-get update!
+	to change python version, type: sudo update-alternatives --config python3
+2. sudo rosdep init and rosdep update "error: command not found" when following the command from intorobotics.com website
+	Solution: https://answers.ros.org/question/32875/rosdep-command-not-found/
+
+How to install ROS melodic on your raspberriPi 3 model b running ubuntu mate 18.04:
+https://www.intorobotics.com/installing-ros-melodic-on-raspberry-pi-3b-running-ubuntu-mate-18-04-2-bionic/
+
+ROS tutorial (?) : http://wiki.ros.org/ROS/Tutorials
+	(1) create a workspace for catkin (http://wiki.ros.org/catkin/Tutorials/create_a_workspace)
+	(2) 
+
+setup your arduino ide to be able to use rosserial: http://wiki.ros.org/rosserial_arduino/Tutorials/Arduino%20IDE%20Setup#:~:text=Finishing%20Up-,Introduction,works%20over%20your%20Arduino%27s%20UART.
+Problems:
+	1. First, make your catkin workspace (<ws>) first as seen from the link above
+	2. when catkin_make error could not find pythonInterpreter : solution is to remove the CmakeCache.txt in <ws>/build folder
+	3. when catkin_make install error failed to open for writing (permission denied) type "sudo -s" first to become root user then
+	   type catkin_make install. to go back to ubuntu@ubuntu, type "su ubuntu". or type "exit" until it exits
+
+openCV4 installation for raspi4: https://www.pyimagesearch.com/2017/09/04/raspbian-stretch-install-opencv-3-python-on-your-raspberry-pi/
+*note: this is to download openCV3, openCV4 error mulu gabisa >:(
+what is python virtual environment? visit -> https://realpython.com/python-virtual-environments-a-primer/
+how to increase swap file on ubuntu: https://raspiserver.com/change-swap-size-on-raspberry-pi/
+
+where your openCV installed using python 3: ls -l /usr/local/lib/python3.6/site-packages/
+where your openCV installed using python 2: ls -l /usr/local/lib/python2.7/dist-packages/
+
+
+openCM9.04 fails to upload program:
+1. open roboplus manager
+2. hold the user button, then disconnect power, then connecto the power again. this is to enter the recovery mode
+3. in roboplus manager, choose controller firmware management
+4. follow the steps. DONE!
+
+Teensy setup in Linux Ubuntu Mate:
+follow : https://www.pjrc.com/teensy/td_download.html
+for teensy udev rules, see code at : https://forum.pjrc.com/threads/45691-Installer-for-udev-rules-in-Linux
+	(run the "wget -O - http://www.nominal-animal.net/answers/install-teensy-rules | bash --" command, this will automatically do the trick) -> ini bisa donlod tapi copynya gabisa
+for linux installer aarch64, to run executable file, type chmod +x myexecutables -> basically run ini buat bisa sampe akhir
+
+Make your USB devices (Teensy, OpenCM9.04, Arduino, etc..) have its own name, not /dev/ttyACM* or /dev/ttyUSB*
+-> https://medium.com/@darshankt/setting-up-the-udev-rules-for-connecting-multiple-external-devices-through-usb-in-linux-28c110cf9251
+notes: In order for this to work, you must make all the parameter unique. if a parameter is the same, you can only use those parameter in 1 device. 
+											      V check this parameter, same or no
+	SUBSYSTEM==”tty”,SUBSYSTEMS==”usb”, ATTR{idProduct}==”0042", ATTR{idVendor}==”2341",ATTRS{serial}==”8573031393635151F1A0",MODE=”777", SYMLINK+=”steering”
+
+
+Problem when your raspi wont connect serially to exp485: something to do with the serial protocol of the openCM9.04
+
+
+
+
+
+
+LattePanda
+username: krisna@gladiatos
+password: gladiatos
+
+how to install ubuntu 16.04.06 on lattepanda: http://docs.lattepanda.com/content/1st_edition/troubleshooting/
+how to change your UEFI from 32 bit to 64 bit and vice versa: https://www.lattepanda.com/topic-f10t1636.html#top
+
+tightvncserver password: connect
+tightvncserver view-only password: connect
+krisna@localhost's password: gladiatos
+
+how to install openssh server: https://phoenixnap.com/kb/ssh-to-connect-to-remote-server-linux-or-windows
+error if sudo apt-get install: use sudo aptitude install 
+
+to fix your grey screen vncviewer:
+watch :https://www.youtube.com/watch?v=scRRFsq4_70
+
+to shut down from terminal: sudo shutdown -h now
+
+to start your network manager ubuntu: sudo /etc/init.d/network-manager start
+(this is if you cant connect using onboard wifi adapter, use external then type the above command)
+
+How to flash ubuntu to odroid xu4
+1. get some microSD card. recommended using minimum 32GB
+2. format it to fat32 file system using AOMEI Partition Assistant
+3. get your .img file from https://wiki.odroid.com/odroid-xu4/os_images/linux/ubuntu_4.14/ubuntu_4.14
+4. choose MINIMAL, BARE OS so that it will use less space 
+5. .img.xz file is .img file but it is compressed. simply decompressed it to get the .img file
+6. use balena etcher to flash the .img file into the microSD card
+7. when it finishes, eject the microSD card, then insert it to the microSD card slot on the xu4
+8. FINISHED. HOORAY!
+
+How to download openCV4 for odroid XU4:
+1. go to https://medium.com/analytics-vidhya/iot-opencv-4-1-on-odroid-xu4-8a14d395f191
+2. follow the steps
+3. the ‘cv2.cpython-36m-arm-linux-gnueabihf.so’ located at ‘opencv_package’ folder. rename it to cv2.so
+   and then copy and paste it to /usr/local/lib/python3.6/dist-packages
+4. when run your program, error PyUnicode from string, berarti itu ada hubungannya dengan salah
+   masukin ke dist-packages atau site-packages atauga gak compatible cv2.so nya dengan versi python nya
+5. kalo ada error "inconsistent use of tabs and spaces in indentation", pake command "autopep8 -i my_file.py"
+   donlod dulu tapi. masalah berkaitan dengan use space atau tab buat indent nya. gajelas juga sih ini
+6. kalo ada error "unable to start pipeline", ada hubungannya dengan cv2.VideoCapture(). ganti jadi 
+   cv2.VideoCapture(/dev/video0) yang tadinya cv2.VideoCapture(0)
